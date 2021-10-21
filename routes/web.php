@@ -26,9 +26,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::resource('alternatif', AlternatifController::class);
-Route::resource('kriteria', KriteriaController::class);
-Route::resource('himpunan', HimpunanController::class);
-Route::resource('penilaian', PenilaianController::class);
-Route::resource('hasil', HasilController::class);
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('alternatif', AlternatifController::class);
+    Route::resource('kriteria', KriteriaController::class);
+    Route::resource('himpunan', HimpunanController::class);
+    Route::resource('penilaian', PenilaianController::class);
+    Route::resource('hasil', HasilController::class);
+});

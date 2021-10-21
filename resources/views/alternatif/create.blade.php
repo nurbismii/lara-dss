@@ -9,8 +9,8 @@
         <div class="form-group col-sm-6">
             <div class="col-lg">
                 <div class="form-group">
-                <label for="nim">Nomor Indok Mahasiswa</label>
-                        <input type="text" class="form-control" name="nim">
+                    <label for="nim">Nomor Indok Mahasiswa</label>
+                    <input type="text" class="form-control" name="nim">
                 </div>
                 <div class="form-group">
                     <label for="Nama">Nama Lengkap</label>
@@ -22,7 +22,7 @@
                 </div>
                 <button type="submit" class="btn btn-success mr-2">Simpan</button>
                 <button type="reset" class="btn btn-light">Hapus</button>
-                <a href="" class="btn btn-light float-right">Kembali</a>
+                <a href="{{ route('alternatif.index')}}" class="btn btn-light float-right">Kembali</a>
             </div>
         </div>
     </form>

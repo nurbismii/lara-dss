@@ -2,7 +2,7 @@
 <html lang="en">
 @include('layouts.partials.header_auth')
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-dark">
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">

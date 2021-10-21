@@ -20,8 +20,12 @@ class PenilaianController extends Controller
         //
         $alternatif = alternatif::all();
 
+        //Join table antar normalisasi dan alternatif
         $normalisasi = normalisasi::join('alternatifs', 'normalisasi.alter_id', '=', 'alternatifs.id')
             ->get(['normalisasi.*', 'alternatifs.nama']);
+
+        //Join table antar kriteria dan himpunan
+        // Untuk mengambil nilai dan menampilkan nama sesuai id
         $ipk = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
             ->where('kriterias.id', 1)->get();
         $pot = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
@@ -47,9 +51,20 @@ class PenilaianController extends Controller
         $min4 = normalisasi::min('C4');
         $min5 = normalisasi::min('C5');
 
-        $benefit = kriteria::where('atribut', 'benefit')->get();
-        $cost = kriteria::where('atribut', 'cost')->get();
+        //Cek atribut
+        $atr1 = kriteria::find(1)->atribut;
+        $atr2 = kriteria::find(3)->atribut;
+        $atr3 = kriteria::find(4)->atribut;
+        $atr4 = kriteria::find(5)->atribut;
+        $atr5 = kriteria::find(6)->atribut;
 
+        $c1 = 0;
+        $c2 = 0;
+        $c3 = 0;
+        $c4 = 0;
+        $c5 = 0;
+
+        //mengambil nilai bobot sesuai dengan ID
         $bobot_ipk = kriteria::find(1)->bobot;
         $bobot_penghasilanOrtu = kriteria::find(3)->bobot;
         $bobot_smt = kriteria::find(4)->bobot;
@@ -77,16 +92,25 @@ class PenilaianController extends Controller
             'min4',
             'min5',
 
+            'atr1',
+            'atr2',
+            'atr3',
+            'atr4',
+            'atr5',
+
+            'c1',
+            'c2',
+            'c3',
+            'c4',
+            'c5',
+
             'bobot_ipk',
             'bobot_penghasilanOrtu',
             'bobot_smt',
             'bobot_tanggunganOrtu',
             'bobot_organisasi',
 
-            'benefit',
-            'cost'
-
-        ))->with('no');
+        ))->with('no',);
     }
 
     /**

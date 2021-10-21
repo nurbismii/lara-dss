@@ -18,11 +18,11 @@
                                 <thead>
                                     <tr>
                                         <th>Alternatif</th>
-                                        <th>C1.(Benefit)</th>
-                                        <th>C2.(Cost)</th>
-                                        <th>C3.(Benefit) </th>
-                                        <th>C4.(Benefit)</th>
-                                        <th>C5.(Benefit)</th>
+                                        <th>C1.{{ ucfirst($atr1) }}</th>
+                                        <th>C2.{{ ucfirst($atr2) }}</th>
+                                        <th>C3.{{ ucfirst($atr3) }}</th>
+                                        <th>C4.{{ ucfirst($atr4)}}</th>
+                                        <th>C5.{{ ucfirst($atr5) }}</th>
                                         <th>AKSI</th>
                                     </tr>
                                 </thead>
