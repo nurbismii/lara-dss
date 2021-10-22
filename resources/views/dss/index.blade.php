@@ -36,9 +36,9 @@
                                         <td>{{ $value->C4 }}</td>
                                         <td>{{ $value->C5 }}</td>
                                         <td>
-                                            <form action="{{ route('penilaian.destroy', $value->id)}}" method="POST">
-                                                @csrf
+                                            <form action="{{ route('penilaian.destroy', $value->id) }}" method="POST">
                                                 {{ method_field('delete')}}
+                                                @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm float-right">Hapus</button>
                                             </form>
                                         </td>

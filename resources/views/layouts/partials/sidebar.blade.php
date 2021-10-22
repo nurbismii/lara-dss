@@ -13,7 +13,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{ url('home')}}">
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
@@ -23,7 +23,7 @@
 
     <div class="sidebar-heading">Penilaian</div>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{ url('penilaian')}}">
             <i class="fas fa-fw fa-check"></i>
             <span>DSS</span></a>

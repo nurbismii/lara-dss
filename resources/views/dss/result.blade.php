@@ -25,48 +25,60 @@
                             <tr>
                                 <td>{{ $value->nama }}</td>
 
-                                @if($atr1 == 'benefit')
-                                <td>{{ $c1 = number_format($value->C1/$max1, 2)}}</td>
+                                @if($value->C1 != 0 && $value->C2 != 0 && $value->C3 != 0 && $value->C4 != 0 && $value->C5 != 0)
+
+                                @if($atr1 == "benefit")
+                                <td>{{ $c1 = number_format($value->C1/$max1, 1)}}</td>
                                 @else
-                                <td>{{ $c1 = number_format($min1/$value->C1, 2)}}</td>
+                                <td>{{ $c1 = number_format($min1/$value->C1, 1)}}</td>
                                 @endif
 
-                                @if($atr2 == 'benefit')
-                                <td>{{ $c2 = number_format($value->C2/$max2, 2) }}</td>
+                                @if($atr2 == "benefit")
+                                <td>{{ $c2 = number_format($value->C2/$max2, 1) }}</td>
                                 @else
-                                <td>{{ $c2 = number_format($min2/$value->C2, 2) }}</td>
+                                <td>{{ $c2 = number_format($min2/$value->C2, 1) }}</td>
                                 @endif
 
                                 @if($atr3 == 'benefit')
-                                <td>{{ $c3 = number_format($value->C3/$max3, 2) }}</td>
+                                <td>{{ $c3 = number_format($value->C3/$max3, 1) }}</td>
                                 @else
-                                <td>{{ $c3 = number_format($min3/$value->C3, 2) }}</td>
+                                <td>{{ $c3 = number_format($min3/$value->C3, 1) }}</td>
                                 @endif
 
                                 @if($atr4 == 'benefit')
-                                <td>{{ $c4 = number_format($value->C4/$max4, 2) }}</td>
+                                <td>{{ $c4 = number_format($value->C4/$max4, 1) }}</td>
                                 @else
-                                <td>{{ $c4 = number_format($min4/$value->C4, 2) }}</td>
+                                <td>{{ $c4 = number_format($min4/$value->C4, 1) }}</td>
                                 @endif
 
-
-                                @if($atr5 == 'benefit')
-                                <td>{{ $c5 = number_format($value->C5/$max5, 2) }}</td>
+                                @if($atr5 == "benefit")
+                                <td>{{ $c5 = number_format($value->C5/$max5, 1) }}</td>
                                 @else
-                                <td>{{ $c5 = number_format($min5/$value->C5, 2) }}</td>
+                                <td>{{ $c5 = number_format($min5/$value->C5, 1) }}</td>
                                 @endif
+
+                                @else
+
+                                @if($atr1 == "benefit")
+                                <td>{{ $c1 = number_format($value->C1/$max1, 1)}}</td>
+                                @else
+                                <td>{{ $c1 = number_format($min1/$value->C1, 1)}}</td>
+                                @endif
+                                <td>{{ $c2 = number_format($value->C2/$max2, 1) }}</td>
+                                <td>{{ $c3 = number_format($value->C3, 1) }}</td>
+                                <td>{{ $c4 = number_format($value->C4, 1) }}</td>
+                                <td>{{ $c5 = number_format($value->C5, 1)}}</td>
+                                @endif
+
                                 <td>{{
-                                    number_format
-                                    (
-                                        
-                                        (($c1) * $bobot_ipk) +
-                                        (($c2) * $bobot_penghasilanOrtu) +
-                                        (($c3) * $bobot_tanggunganOrtu) +
-                                        (($c4) * $bobot_smt) +
-                                        (($c5) * $bobot_organisasi), 
-                                    2)
+                                    number_format(
+                                        ($c1 * $bobot_ipk) + ($c2 * $bobot_penghasilanOrtu) + 
+                                        ($c3 * $bobot_smt) + ($c4 * $bobot_tanggunganOrtu) +
+                                        ($c5 * $bobot_organisasi),
+                                        1)
                                     }}
                                 </td>
+
                             </tr>
                         </tbody>
                         @endforeach

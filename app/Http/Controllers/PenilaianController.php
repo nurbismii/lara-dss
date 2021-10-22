@@ -127,8 +127,8 @@ class PenilaianController extends Controller
         $model->alter_id = $request->alter_id;
         $model->c1 = $request->ipk;
         $model->c2 = $request->pot;
-        $model->c3 = $request->tot;
-        $model->c4 = $request->smt;
+        $model->c3 = $request->smt;
+        $model->c4 = $request->tot;
         $model->c5 = $request->ko;
 
         $model->save();
@@ -181,7 +181,7 @@ class PenilaianController extends Controller
     public function destroy($id)
     {
         //
-        $model = normalisasi::findorFail($id);
+        $model = normalisasi::find($id);
         $model->delete();
 
         return redirect('penilaian');

@@ -2,7 +2,7 @@
     <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-dark">Nilai Pengaju</h6>
+            <h6 class="m-0 font-weight-bold text-dark">Input Data</h6>
         </div>
         <!-- Card Body -->
         <div class="card-body">
@@ -38,21 +38,21 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="jurusan">Tanggungan Orang Tua</label>
-                            <select class="form-control" name="tot" id="">
-                                <option value="">Tanggungan Ortu</option>
-                                @foreach($tot as $value)
-                                <option value="{{ $value->nilai }}">{{ $value->nama }}</op>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="jurusan">Semester</label>
                             <select class="form-control" name="smt" id="">
                                 <option value="">Semester Pengaju</option>
                                 @foreach($smt as $value)
                                 <option value="{{ $value->nilai }}">{{ $value->nama }}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jurusan">Tanggungan Orang Tua</label>
+                            <select class="form-control" name="tot" id="">
+                                <option value="">Tanggungan Ortu</option>
+                                @foreach($tot as $value)
+                                <option value="{{ $value->nilai }}">{{ $value->nama }}</op>
+                                    @endforeach
                             </select>
                         </div>
                         <div class="form-group">
