@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\himpunan;
 use App\Models\kriteria;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HimpunanController extends Controller
 {
@@ -45,12 +46,31 @@ class HimpunanController extends Controller
     public function store(Request $request)
     {
         //
+        $check = himpunan::all('nama');
+        $arr = compact('check');
+
+        for ($i = 0; $i < count($check); $i++) {
+            $nama = $arr['check'][$i]['nama'];
+            if ($request->nama == $nama) {
+                Alert::info('Peringatan', 'Himpunan sudah ada');
+                return redirect()->back();
+            }
+        }
         $datas = new himpunan();
+
+        $request->validate([
+            'kriteria_id' => ['required'],
+            'nama' => ['required'],
+            'nilai' => ['required'],
+        ]);
+
         $datas->kriteria_id = $request->kriteria_id;
         $datas->nama = $request->nama;
         $datas->nilai = $request->nilai;
 
         $datas->save();
+
+        Alert::success('Berhasil', 'Himpunan berhasil ditambah');
         return redirect('himpunan');
     }
 
@@ -81,6 +101,7 @@ class HimpunanController extends Controller
         //
         $kriteria = kriteria::all();
         $datas = himpunan::findorFail($id);
+        
         return view('himpunan.edit', compact(
             'kriteria',
             'datas'
@@ -98,12 +119,20 @@ class HimpunanController extends Controller
     {
         //
         $datas = himpunan::findorFail($id);
+
+        $request->validate([
+            'kriteria_id' => ['required'],
+            'nama' => ['required'],
+            'nilai' => ['required'],
+        ]);
+
         $datas->kriteria_id = $request->kriteria_id;
         $datas->nama = $request->nama;
         $datas->nilai = $request->nilai;
 
-
         $datas->save();
+
+        Alert::success('Berhasil', 'Himpunan telah diubah');
         return redirect('himpunan');
     }
 
@@ -119,6 +148,7 @@ class HimpunanController extends Controller
         $datas = himpunan::findorFail($id);
         $datas->delete();
 
+        Alert::success('Berhasil', 'Himpunan telah dihapus');
         return redirect('himpunan');
     }
 }

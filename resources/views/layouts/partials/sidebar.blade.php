@@ -21,24 +21,30 @@
 
     <hr class="sidebar-divider">
 
-    <div class="sidebar-heading">Penilaian</div>
+    <div class="sidebar-heading">DSS</div>
 
     <li class="nav-item">
         <a class="nav-link" href="{{ url('penilaian')}}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span>Klasifikasi</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url('hasil')}}">
             <i class="fas fa-fw fa-check"></i>
-            <span>DSS</span></a>
+            <span>Hasil Analisa</span></a>
     </li>
 
     <hr class="sidebar-divider">
 
-    <div class="sidebar-heading">Inteface </div>
+    <div class="sidebar-heading">Master Data</div>
 
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
         <a class="nav-link" href="{{ url('alternatif')}}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Alternatif</span></a>
+            <span>Mahasiswa</span></a>
     </li>
 
     <!-- Nav Item - Tables -->

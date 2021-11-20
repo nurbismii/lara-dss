@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\kriteria;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KriteriaController extends Controller
 {
@@ -41,13 +42,32 @@ class KriteriaController extends Controller
     public function store(Request $request)
     {
         //
+        $check = kriteria::all('nama');
+        $arr = compact('check');
+
+        for ($i = 0; $i < count($check); $i++) {
+            $nama = $arr['check'][$i]['nama'];
+            if ($request->nama == $nama) {
+                Alert::info('Peringatan', 'Kriteria sudah ada');
+                return redirect()->back();
+            }
+        }
+        
         $datas = new kriteria();
+
+        $request->validate([
+            'nama' => ['required'],
+            'atribut' => ['required'],
+            'bobot' => ['required'],
+        ]);
+
         $datas->nama = $request->nama;
         $datas->atribut = $request->atribut;
         $datas->bobot = $request->bobot;
 
         $datas->save();
 
+        Alert::success('Berhasil', 'Kriteria telah ditambahkan');
         return redirect('kriteria');
     }
 
@@ -77,11 +97,28 @@ class KriteriaController extends Controller
     {
         //mengirim perubahan jika id sesuai
         $datas = kriteria::findorFail($id);
+
+        $request->validate([
+            'nama' => ['required'],
+        ]);
+
         $datas->nama = $request->nama;
         $datas->atribut = $request->atribut;
-        $datas->bobot = $request->bobot;
+        if(empty($request->atribut)){
+            $datas->atribut = $request->atribut_lama;
+        }
+        else{
+            $datas->atribut = $request->atribut;
+        }
+        if (empty($request->bobot)) {
+            $datas->bobot = $request->bobot_lama;
+        } else {
+            $datas->bobot = $request->bobot;
+        }
 
         $datas->save();
+
+        Alert::success('Berhasil', 'Kriteria telah diperbarui');
         return redirect('kriteria');
     }
 
@@ -97,6 +134,7 @@ class KriteriaController extends Controller
         $datas = kriteria::findOrFail($id);
         $datas->delete();
 
+        Alert::success('Berhasil', 'Kriteria telah dihapus');
         return redirect('kriteria');
     }
 }

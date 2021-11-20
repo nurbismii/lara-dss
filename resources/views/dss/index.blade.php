@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <form action="" method="">
                         <div class="table-responsive">
-                            <table class="table text-center" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-hover text-center" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Alternatif</th>
@@ -23,7 +23,7 @@
                                         <th>C3.{{ ucfirst($atr3) }}</th>
                                         <th>C4.{{ ucfirst($atr4)}}</th>
                                         <th>C5.{{ ucfirst($atr5) }}</th>
-                                        <th>AKSI</th>
+                                        <th>Hapus</th>
                                     </tr>
                                 </thead>
                                 @foreach($normalisasi as $value)
@@ -39,7 +39,9 @@
                                             <form action="{{ route('penilaian.destroy', $value->id) }}" method="POST">
                                                 {{ method_field('delete')}}
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm float-right">Hapus</button>
+                                                <button type="submit" class="btn btn-danger btn-sm float-right">
+                                                    <i class="fas fa fa-trash"></i>
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>

@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\alternatif;
-use App\Models\himpunan;
 use App\Models\kriteria;
 use App\Models\normalisasi;
+use Exception;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PenilaianController extends Controller
 {
@@ -121,55 +122,40 @@ class PenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Cek data di database apakah sudah ada atau belum
+        $check = normalisasi::all('alter_id');
+        $arr = compact('check');
+
+        for ($i = 0; $i < count($check); $i++) {
+            $id = $arr['check'][$i]['alter_id'];
+            if ($request->alter_id == $id) {
+                Alert::info('Peringatan', 'Alternatif sudah ada');
+                return redirect()->back();
+            }
+        }
+
         $model = new normalisasi();
+
+        $request->validate([
+            'alter_id' => ['required'],
+            'ipk' => ['required'],
+            'pot' => ['required'],
+            'smt' => ['required'],
+            'jtot' => ['required'],
+            'organisasi' => ['required'],
+        ]);
 
         $model->alter_id = $request->alter_id;
         $model->c1 = $request->ipk;
         $model->c2 = $request->pot;
         $model->c3 = $request->smt;
-        $model->c4 = $request->tot;
-        $model->c5 = $request->ko;
+        $model->c4 = $request->jtot;
+        $model->c5 = $request->organisasi;
 
         $model->save();
 
+        Alert::success('Berhasil', 'Alternatif telah ditambahkan');
         return redirect('penilaian');
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-        $alter = alternatif::all();
-
-        $datas = normalisasi::findorFail($id);
-
-        $ipk = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
-            ->where('kriterias.id', 1)->get();
-        $pot = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
-            ->where('kriterias.id', 3)->get();
-        $tot = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
-            ->where('kriterias.id', 5)->get();
-        $smt = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
-            ->where('kriterias.id', 4)->get();
-        $ko = kriteria::join('himpunans', 'kriterias.id', '=', 'himpunans.kriteria_id')
-            ->where('kriterias.id', 6)->get();
-
-        return view('dss.edit', compact(
-            'datas',
-            'alter',
-            'ipk',
-            'pot',
-            'tot',
-            'smt',
-            'ko'
-        ));
     }
 
     /**
@@ -181,9 +167,14 @@ class PenilaianController extends Controller
     public function destroy($id)
     {
         //
-        $model = normalisasi::find($id);
-        $model->delete();
-
-        return redirect('penilaian');
+        try {
+            $data = normalisasi::find($id);
+            $data->delete();
+            Alert::success('Berhasil', 'Alternatif telah ditambahkan');
+            return redirect()->back();
+        } catch (Exception $e) {
+            Alert::warning('Informasi', 'Data telah beralasi, hapus hasil perhitungan terlebih dahulu');
+            return redirect()->back();
+        }
     }
 }

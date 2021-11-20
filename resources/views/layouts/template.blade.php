@@ -8,6 +8,7 @@
         <div id="content">
             @include('layouts.partials.topbar')
             <!-- Begin Page Content -->
+
             @yield('content')
             <!-- /.container-fluid -->
         </div>
@@ -22,3 +23,4 @@
     <i class="fas fa-angle-up"></i>
 </a>
 @include('layouts.partials.js')
+@include('sweetalert::alert')

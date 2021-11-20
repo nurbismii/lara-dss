@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\alternatif;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class AlternatifController extends Controller
@@ -15,10 +16,10 @@ class AlternatifController extends Controller
      */
     public function index(Request $request)
     {
-        $datas = alternatif::all();
+        $datas = alternatif::paginate('10');
         return view('alternatif.index', compact(
             'datas'
-        ))->with('no', ($request->input('page', 1) - 1) * 20);
+        ))->with('no', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -41,13 +42,31 @@ class AlternatifController extends Controller
     public function store(Request $request)
     {
         //
+        $check = alternatif::all('nim');
+        $arr = compact('check');
+
+        for ($i = 0; $i < count($check); $i++) {
+            $nim = $arr['check'][$i]['nim'];
+            if ($request->nim == $nim) {
+                Alert::info('Peringatan', 'Alternatif sudah ada');
+                return redirect()->back();
+            }
+        }
+
         $model = new alternatif();
+
+        $request->validate([
+            'nim' => ['required'],
+            'nama' => ['required'],
+            'jurusan' => ['required'],
+        ]);
+
         $model->nim = $request->nim;
         $model->nama = $request->nama;
         $model->jurusan = $request->jurusan;
-
         $model->save();
 
+        Alert::success('Berhasil', 'Alternatif telah ditambahkan');
         return redirect('alternatif');
     }
 
@@ -77,12 +96,18 @@ class AlternatifController extends Controller
     {
         $datas = alternatif::findorFail($id);
 
+        $request->validate([
+            'nim' => ['required'],
+            'nama' => ['required'],
+            'jurusan' => ['required'],
+        ]);
+
         $datas->nim = $request->nim;
         $datas->nama = $request->nama;
         $datas->jurusan = $request->jurusan;
-
         $datas->save();
 
+        Alert::success('Berhasil', 'Alternatif telah diperbarui');
         return redirect('alternatif')->with('success');
     }
 
@@ -97,6 +122,8 @@ class AlternatifController extends Controller
         //
         $datas = alternatif::findorFail($id);
         $datas->delete();
+
+        Alert::success('Berhasil', 'Alternatif telah dihapus');
         return redirect('alternatif');
     }
 }

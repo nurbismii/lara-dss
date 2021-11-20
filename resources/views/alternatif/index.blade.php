@@ -41,10 +41,12 @@
                     </tbody>
                     @endforeach
                 </table>
+                {{-- Pagination --}}
+                <div class="d-flex float-right">
+                    {!! $datas->links() !!}
+                </div>
             </div>
-
         </div>
-
     </div>
 </div>
 @endsection

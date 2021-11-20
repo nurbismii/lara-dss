@@ -32,4 +32,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('himpunan', HimpunanController::class);
     Route::resource('penilaian', PenilaianController::class);
     Route::resource('hasil', HasilController::class);
+    Route::delete('/hasil', [App\Http\Controllers\HasilController::class, 'truncate'])->name('hasil.truncate');
 });
